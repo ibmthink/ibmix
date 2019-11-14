@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CC - VIP视频解析播放-V4.6</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.5/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/gh/ibmthink/ibmix@1.0/public/css/style.css?t=3" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.jsdelivr.net/gh/ibmthink/ibmix@1.0/public/js/acRender.js?t=2"></script>
+<script src="https://cdn.jsdelivr.net/gh/ibmthink/ibmix@1.0/public/js/jquery.js?t=6"></script>
+<script type='text/javascript' src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.5/dist/js/bootstrap.min.js"></script>
+<script>
+	function addStyle(css) {
+		var pi = document.createProcessingInstruction(
+			'xml-stylesheet',
+			'type="text/css" href="data:text/css;utf-8,' + encodeURIComponent(css) + '"'
+		);
+		return document.insertBefore(pi, document.documentElement);
+	}
+	let text = "https://v.youku.com/v_show/id_XMjg1MDY0ODk0MA==.html";
+	text = encodeURIComponent(text);
+	var list = {
+		'iqiyi': [{id: "9", name: "9号接口-超快速度"}, {id: "5", name: "5号接口-自带翻译"}, {id: "8", name: "8号接口-待测试"}, {
+			id: "2",
+			name: "2号接口-速度快"
+		}, {id: "3", name: "3号爱奇艺-VIP-速度快"}, {id: "1", name: "1号接口"}, {id: "6", name: "6号接口-播放稳定"}],
+		'tudou': [{id: "9", name: "9号接口-超快速度"}, {id: "7", name: "7号土豆-速度快"}, {id: "2", name: "2号土豆-速度快"}, {
+			id: "8",
+			name: "8号接口-待测试"
+		}],
+		'youku': [{id: "9", name: "9号接口-超快速度"}, {id: "6", name: "6号接口-高清VIP"}, {
+			id: "1",
+			name: "1号优酷-超清VIP视频-较慢"
+		}, {id: "2", name: "2号接口-高清VIP-有广告"}, {id: "5", name: "5号接口-高清VIP"}],
+		'le': [{id: "9", name: "9号接口-超快速度"}, {id: "3", name: "3号乐视-速度快"}, {id: "5", name: "5号接口-高清"}],
+		'qq': [{id: "9", name: "9号接口-超快速度"}, {id: "6", name: "6号接口-速度快"}, {id: "2", name: "2号接口-腾讯连续剧VIP"}, {
+			id: "1",
+			name: "1号腾讯视频-稳定"
+		}, {id: "3", name: "3号腾讯视频-速度快"}, {id: "4", name: "4号接口-速度快"}],
+		'mgtv': [{id: "9", name: "9号接口-超快速度"}, {id: "5", name: "5号接口-高清"}, {id: "3", name: "3号芒果TV-速度快"}, {
+			id: "1",
+			name: "1号接口-高清"
+		}, {id: "4", name: "4号接口-高清"}, {id: "6", name: "6号接口-速度快"}],
+		'sohu': [{id: "9", name: "9号接口-超快速度"}, {id: "3", name: "3号搜狐视频-速度快"}, {id: "1", name: "1号接口-高清"}, {
+			id: "2",
+			name: "2号接口-高清"
+		}, {id: "4", name: "4号接口-高清"}, {id: "8", name: "8号接口-待测试"}],
+		'pptv': [{id: "9", name: "9号接口-超快速度"}, {id: "5", name: "5号接口-自带翻译"}, {id: "3", name: "3号PPTV视频-速度快"}, {
+			id: "1",
+			name: "1号接口-高清"
+		}, {id: "4", name: "4号接口-高清"}, {id: "6", name: "6号接口-高清"}],
+		'wasu': [{id: "9", name: "9号接口-超快速度"}, {id: "2", name: "2号华数TV-速度快"}, {id: "1", name: "1号华数TV-点击播放"}, {
+			id: 4,
+			name: "4号华数TV-点击播放"
+		}, {id: "6", name: "6号接口-播放稳定"}],
+		'bilibili': [{id: "9", name: "9号接口-超快速度"}, {id: "2", name: "2号华数TV-速度快"}, {id: "8", name: "8号接口-待测试"}],
+		'yinyuetai': [{id: "9", name: "9号接口-超快速度"}, {id: "6", name: "6号接口-音悦台-点击播放"}, {id: "2", name: "2号接口-音悦台-点击播放"}],
+		'1905': [{id: "9", name: "9号接口-超快速度"}, {id: "2", name: "1号接口-稳定"}, {id: "5", name: "5号接口-高清"}, {
+			id: "8",
+			name: "8号接口-待测试"
+		}]
+	};
+
+	function Reg_Get(HTML, reg) {
+		var result = reg.exec(HTML);
+		if (result == null)
+			return null;
+		return result[1];
+	}
+
+	var threshold = 160;
+	setInterval(function () {
+		if (self != top) {
+			// window.location.reload();
+			$("body").addClass("iframe");
+		} else {
+			$("body").removeClass("iframe");
+		}
+	}, 150);
+</script>
+<script type="text/html">
+    <option value="$(acid)">$(text)</option>
+</script>
+<script type="text/html" class="div">
+    <span class="channel" data-id="$(id)" onclick="sourceChange(this)"><span style="float:left;line-height: 40px;">$(name)</span></span>
+</script>
+</head>
+<body>
+<div class="topbar">
+    <div class="container">
+        <div class="logo">
+            <a href="/" target="_self"><img alt="LOGO" src="https://cdn.jsdelivr.net/gh/ibmthink/ibmix@1.0/public/css/go_logo.png"></a>
+        </div>
+        <ul>
+            <li><a target="_blank" href="plugin.html">脚本使用</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- 背景图片 -->
+<div class="container mainPlayer ">
+    <script>
+		var oldUrl = null;
+		function loadAd() {
+			setTimeout(function () {
+			}, 5000);
+		}
+		function reSetUrl() {
+			let queryUrl = $("input.form-control").val();
+			queryUrl = queryUrl.replace(/\?[\S]*/, "");
+			$("input.form-control").val(queryUrl);
+			if (oldUrl != null && oldUrl != queryUrl) {
+				location.href = "?url=" + encodeURIComponent(queryUrl);
+			}
+			oldUrl = queryUrl;
+			let id = $("#jk").val();
+			$(".channel").removeClass("active");
+			$(".channel[data-id='" + id + "']").addClass("active");
+			$.Event().preventDefaultPop.changeEvent()
+			loadAd();
+		}
+
+		function sourceChange(source) {
+			$("#jk").val(source.dataset.id);
+			reSetUrl();
+		}
+
+		function doSearch(e) {
+		}
+
+		function reSetText(title) {
+			return title.replace(/(第?(\d+)(期|季)|:|：).*/, "");
+		}
+    </script>
+    <div class="tg-source">
+
+    </div>
+    <a class="tg-btn" href="javascript:void(0);" onclick="$('.tg-source').toggle()">切换源</a>
+    <div class="col-md-14 column colMain column-tips">
+        <div style="border-radius: 0;font-size: 1.3em;" class="alert-warning hidden-xs" role="alert">
+            <p style="text-align: center;">
+                最新地址已检测。
+                <a href="plugin.html" target="_blank"><span>脚本更新</span></a>
+                CC-专注提供更好的解决方案。
+            </p>
+        </div>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8654055784345119"
+             data-ad-slot="1555173683"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <form method="get">
+            <div class="col-md-3" style="margin-top: 8px;">
+                <div class="input-group" style="width: 100%;">
+                    <select class="form-control input-lg" id="jk">
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-7" style="margin-top: 8px;">
+                <div class="input-group" style="width: 100%;">
+                    <input class="form-control input-lg" type="search" placeholder="输入播放地址" id="url" value="我就是爱音乐">
+                </div>
+            </div>
+            <div>
+                <div class="col-md-2" style="margin-top: 8px;">
+                    <div class="col-md-14 column"></div>
+                    <button type="button" class="btn btn-default btn-lg btn-block" onclick="reSetUrl()">立即播放</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-14 column colMain column-tips" style="margin-bottom:-15px;float: left;width: 100%;margin-top: 5px;">
+        <div class="panel panel-default title" style="width: 100%;overflow: hidden;">
+            <span class="col-md-1">推荐源：</span>
+            <span class="fx">
+            </span>
+            <span class="title search" style="display:none;float: right;margin-right: 15px;color:#6b98ee;cursor: pointer;" onclick="doSearch()">CC官网</span>
+        </div>
+    </div>
+    <div class="col-md-14 column" style="margin-top: 75px">
+        <div class="panel panel-default">
+            <div id="kj" class="panel-body">
+                <!--<iframe src="https://api.pangujiexi.com/player.php?url=https://www.iqiyi.com/v_19rqyzc0y0.html?list=19rrm7pc1i" id="player" width="100%" height="100%" allowtransparency="true" frameborder="0" scrolling="no"></iframe>-->
+            </div>
+        </div>
+    </div>
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-8654055784345119">
+    </amp-auto-ads>
+    <div class="col-md-14 column column-tips">
+        <div class="panel panel-default">
+            <span style="color: #FE8B1F;display: block;text-align:center;line-height:40px;font-size:16px;">uBlock会导致不能播放，请先关闭uBlock！！！如果没有自动播放，请点击进行播放！如果遇到播放异常，请点击更换线路！</span>
+        </div>
+    </div>
+    <div id="cyQing" role="cylabs" data-use="qing" sid="shouye"></div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-format="autorelaxed"
+         data-ad-client="ca-pub-8654055784345119"
+         data-ad-slot="8412454984"></ins>
+    <div class="tips column-tips">
+        <div class="col-md-12" style="margin-top: 10px;">
+            <div style="border-radius: 0;" class="alert alert-success" role="alert">
+                <p style="text-align: center;">本站视频源于互联网视频网站，系互联网抓取所得，仅供学习交流。</p>
+            </div>
+        </div>
+        <!-- vip_bottom_big -->
+        <div class="logos_lists">
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.le.com/">
+                        <img alt="乐视TV视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9ay7h6ixj20460140ss.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>乐视TV视频</dd>
+            </dl>
+            <dl>
+                <dt><a rel="nofollow" target="_blank" href="https://v.qq.com/">
+                    <img alt="腾讯视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9ayd6zclj204601ejrk.jpg" width="150" height="35" referrerpolicy="no-referrer"></a>
+                </dt>
+                <dd>腾讯视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.iqiyi.com/">
+                        <img alt="爱奇艺视频" src="https://tva1.sinaimg.cn/large/a15b4afegy1fpufdidihoj204601ea9y.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>爱奇艺视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.youku.com/">
+                        <img alt="优酷视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9azow3n7j204601eaa3.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>优酷视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.tudou.com/">
+                        <img alt="土豆视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9aynf9q6j204601ewel.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>土豆视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.mgtv.com/">
+                        <img alt="芒果TV视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9axttrblj204601eglq.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>芒果TV视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://tv.sohu.com/">
+                        <img alt="搜狐视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9ayhn9fyj204601e0t3.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>搜狐视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://cloud.youku.com/">
+                        <img alt="优酷云C" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9azi0hhfj20580113zs.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>优酷云C</dd>
+            </dl>
+            <dl>
+                <dt><a rel="nofollow" target="_blank" href="https://www.acfun.tv/">
+                    <img alt="Ac弹幕网" src="https://tva1.sinaimg.cn/large/007JNEx0ly1g8xfxx9n4rj302g00rgld.jpg" width="110" height="35"></a>
+                </dt>
+                <dd>Ac弹幕网</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.bilibili.com/">
+                        <img alt="哔哩哔哩" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9awgi0unj203d019t8k.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>哔哩哔哩</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.fun.tv/">
+                        <img alt="风行网" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9awmt1ywg204601ka9v.gif" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>风行网</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.wasu.cn/">
+                        <img alt="WASU华数视频" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9aytk4k9j204601et8p.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>WASU华数视频</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.56.com/">
+                        <img alt="56" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9aw1fzbnj204601e3yf.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>56</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <a rel="nofollow" target="_blank" href="https://www.yinyuetai.com/">
+                        <img alt="音悦台MV" src="https://tva1.sinaimg.cn/large/6a155794ly1fu9azbm5nhj204601eglr.jpg" referrerpolicy="no-referrer">
+                    </a>
+                </dt>
+                <dd>音悦台MV</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="copyright">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <br>
+                <span>
+                    本站提供的播放资源均来自收集的网络接口,本站只提供web页面服务，并不提供影片资源存储，也不参与录制、上传。
+                </span><BR/><span>
+                    若本站无意间侵犯了贵司版权，请给网页底部邮箱地址来信，我们会及时处理和回复，谢谢。
+                </span><BR/><span>
+                    Copyright©2019 站长邮箱:windows@mywiz.cn
+                </span>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<style>
+    body {
+        background: #FFFFFF;
+    }
+
+    .alert-warning a {
+        display: inline-block;
+        line-height: 40px;
+        background-color: #5cb85c;
+        color: white;
+        padding: 0 15px;
+        border-radius: 3px;
+        margin-right: 9px;
+    }
+
+    body.iframe {
+        overflow: hidden;
+    }
+
+    .iframe iframe {
+        background-color: black;
+    }
+
+    .iframe .column-tips, .iframe #SOHUCS {
+        display: none;
+    }
+
+    .iframe .tg-source {
+        z-index: 1024;
+        position: fixed;
+        left: 0;
+        top: 0;
+        margin-top: 35px;
+        margin-left: 10px;
+    }
+
+    .iframe .tg-btn {
+        display: block;
+        z-index: 1024;
+        position: fixed;
+        left: 0;
+        top: 0;
+        margin-top: 10px;
+        margin-left: 10px;
+        background-color: #9400d3;
+        padding: 6px 10px;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .channel > span:hover, .title.search:hover {
+        color: #ff9651 !important;
+    }
+
+    .iframe .tg-source .channel > span {
+        color: WHITE;
+        overflow: auto;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 15px;
+        font-weight: bold;
+        /*border: 1px solid #f5f5f5;*/
+    }
+
+    .iframe .mainPlayer {
+        padding-top: 10px;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .iframe #player {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 666;
+    }
+
+    .logos_lists dl {
+        opacity: 0.9;
+    }
+
+    .logos_lists dl:hover {
+        opacity: 1;
+    }
+
+    .panel-default.title > span {
+        /*color: #FE8B1F;*/
+        line-height: 40px;
+        font-size: 16px;
+    }
+
+    .panel-default.title .channel > span {
+        color: #999999;
+        overflow: auto;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 30px;
+        font-weight: bold;
+        /*border: 1px solid #f5f5f5;*/
+    }
+
+    .colMain .panel-default {
+        float: left;
+        height: 40px;
+    }
+
+    .active span {
+        color: #6b98ee !important;
+    }
+</style>
+<!--<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>-->
+<script>
+	function safeScriptOnloadFunc(src, callback) {
+		var scriptNode = document.createElement('script');
+		scriptNode.src = src;
+		scriptNode.onload = callback();
+		document.head.appendChild(scriptNode);
+	}
+	loadAd();
+</script>
+<script>
+	var safeWaitFunc = function (queryStr, callback) {
+		var tt = setInterval(function () {
+			var node = document.querySelector(queryStr);
+			if (node != null) {
+				clearInterval(tt);
+				callback(node);
+			}
+		}, 200);
+	};
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ibmthink/ibmix@1.0/public/js/requireJS.js"></script>
+<!--<script src="/__/firebase/7.2.3/firebase-app.js"></script>-->
+<!--<script src="/__/firebase/init.js"></script>-->
+</body>
+</html>

@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>CC - 脚本使用说明</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="bookmark" href="/favicon.ico"/>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <script type='text/javascript' src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type='text/javascript' src="https://cdn.staticfile.org/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-fixed-top navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><strong>CC</strong>-vip视频在线解析</a>
+            </div>
+        </div>
+    </nav>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <p>脚本地址：<a rel="nofollow" href="https://greasyfork.org/zh-CN/scripts/371262" target="_blank">https://greasyfork.org/zh-CN/scripts/371262</a>
+            </p>
+            <p>脚本功能：在常用视频站视频播放页面，<span style="color: red;font-weight: bold;">视频标题处，加上“vip解析”按钮</span>，点击就能直达本站进行解析，非常方便！
+            </p><img referrerpolicy="no-referrer" src="https://ws1.sinaimg.cn/large/6a155794gy1fucfsjflzdj20nu0exmzg.jpg" alt="展示图片1"><br><br>
+            <hr>
+            <p>脚本安装方法：</p>
+            <hr>
+            <p>1.浏览器需要是chrome浏览器或者chrome内核的浏览器，如360极速浏览器等...</p>
+            <hr>
+            <p>2.先安装<span style="color: red;">tampermonkey</span>脚本管理器，下载地址：
+                <a rel="nofollow" target="_blank" href="http://www.centbrowser.cn/crx/Tampermonkey_v4.5.crx">http://www.centbrowser.cn/crx/Tampermonkey_v4.5.crx</a>
+            ，点击直接安装即可</p>
+            <p>3.打开脚本地址：<a rel="nofollow" href="https://greasyfork.org/zh-CN/scripts/371262" target="_blank">https://greasyfork.org/zh-CN/scripts/371262</a>,按下图所示点击“安装此脚本”
+            </p>
+            <hr>
+            <img referrerpolicy="no-referrer" src="https://ws1.sinaimg.cn/large/6a155794gy1fucfom4puqj20fs06jmxx.jpg"  alt="展示图片2"><br>
+            <hr>
+            <img referrerpolicy="no-referrer" src="https://ws1.sinaimg.cn/large/6a155794gy1fucfmwsmobj20jb0bgq43.jpg"  alt="展示图片3">
+            <hr>
+            <p>脚本就安装完毕了，当你访问-常见视频站vip视频的时候，如<span style="color: red;">优酷会员视频播放页面，会提示你能够进行vip解析</span>；</p><img
+                referrerpolicy="no-referrer" src="https://ws1.sinaimg.cn/large/6a155794gy1fucfsjflzdj20nu0exmzg.jpg"  alt="展示图片4">
+        </div>
+    </div>
+    <div class="row" style="margin-top: 14px;">
+        <div class="col-md-12" style="background-color: #f9f9f9;line-height: 60px;height: 60px;float:left">
+            <ul class="list-inline">
+                <li style="color: #000;"> 友情链接：</li>
+                <li style="color: #000;"><a href="/" target="_blank">视频解析</a></li>
+                <li style="color: #000;"><a href="https://www.baidu.com/" target="_blank">好搜索</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <br>
+                <span>
+                    本站提供的播放资源均来自收集的网络接口,本站只提供web页面服务，并不提供影片资源存储，也不参与录制、上传。
+                </span><BR/><span>
+                    若本站无意间侵犯了贵司版权，请给网页底部邮箱地址来信，我们会及时处理和回复，谢谢。
+                </span><BR/><span>
+                    Copyright©2019 站长邮箱:windows@mywiz.cn
+                </span>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<!--PC和WAP自适应版-->
+<script type="text/javascript">
+	var threshold = 160;
+	setInterval(function () {
+		if (window.outerWidth - window.innerWidth > threshold ||
+			window.outerHeight - window.innerHeight > threshold) {
+			// 如果打开控制台，则刷新页面
+			window.location.reload();
+		}
+		if (self != top) {
+			window.location.reload();
+		}
+	}, 1e3);
+</script>
+<script src="/js/requireJS.js" type="text/javascript"></script>
+<script>
+	function safeScriptOnloadFunc(src, callback){
+		var scriptNode = document.createElement('script');
+		scriptNode.src = src;
+		scriptNode.onload = callback();
+		document.head.appendChild(scriptNode);
+	}
+	loadAd();
+</script>
+</body>
+</html>
